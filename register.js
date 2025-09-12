@@ -1,0 +1,72 @@
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("registerForm");
+    const loginForm = document.getElementById("loginForm");
+    const msg = document.getElementById("responseMsg");
+
+    if(form){
+    form.addEventListener("submit", async (event) => {
+        event.preventDefault(); // stop auto-redirect
+
+        const user = document.getElementById("reg-username").value;
+
+        try {
+            const response = await fetch("http://localhost:8080/exam/user/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ user })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                msg.style.color = "green";
+                msg.textContent = "✅ " + data.message; // show backend message
+            } else {
+                msg.style.color = "red";
+                msg.textContent = "❌ " + data.message;
+            }
+        } catch (error) {
+            console.error("Error:", error);
+            msg.style.color = "red";
+            msg.textContent = "Backend not reachable! "+data.message;
+        }
+    });
+}
+
+if(loginForm){
+    loginForm.addEventListener("submit",async (event)=>{
+        event.preventDefault();
+        const user=document.getElementById("login-username").value.trim();
+        const password=document.getElementById("login-password").value.trim();
+
+        try{
+            const userDetails={
+                user:user,
+                password:password
+            }
+            const response= await fetch("http://localhost:8080/exam/user/login",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(userDetails)
+            })
+            const data=await response.json();
+            if(data.success){
+                console.log('success');
+                msg.style.color = "green";
+                msg.textContent =data.message; 
+                setTimeout(()=>{
+                window.location.href="dashboard.html";
+                },1000)
+            }else{
+                console.log('unsuccess');
+                msg.style.color = "red";
+                msg.textContent = data.message;
+            }
+        }catch(error){
+            console.error("Error:", error);
+            msg.style.color = "red";
+            msg.textContent = "Backend not reachable! "+data.message;
+        }
+    })
+}
+});
