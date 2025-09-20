@@ -5,17 +5,20 @@ import org.com.model.Pojo;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.com.security.HashPassword;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class AptiUserServlet extends HttpServlet {
     ExamPortal ep=new ExamPortal();
+    private static String user;
     public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         response.setContentType("application/json");
@@ -39,7 +42,7 @@ public class AptiUserServlet extends HttpServlet {
             String path=request.getPathInfo();
 
             if("/register".equals(path)){
-                String user=jsonRequest.getString("user");
+               user=jsonRequest.getString("user");
                 boolean result=false;
                 if (ep.checkUser(user)) {
                     result= ep.addData(user);
@@ -55,10 +58,10 @@ public class AptiUserServlet extends HttpServlet {
                 }
 
             }else if("/login".equals(path)){
-                String user=jsonRequest.getString("user");
+                user=jsonRequest.getString("user");
                 String password=jsonRequest.getString("password");
                 if(!ep.checkUser(user)){
-                    if(ep.checkAuth(user).equals(password)){
+                    if(HashPassword.checkPassword(password,ep.checkAuth(user))){
                         jsonResponse.put("success",true);
                         jsonResponse.put("message","login succesfully");
                         List<Pojo> topics=ep.getTopics();
@@ -76,9 +79,31 @@ public class AptiUserServlet extends HttpServlet {
                 }
 
 
+            }else if(path.equals("/writeExam")){
+                JSONArray arr=jsonRequest.getJSONArray("questions");
+                System.out.println("inside write Exam");
+                    int marks=0;
+
+                    for (int i=0;i<arr.length();i++) {
+
+
+
+                        JSONObject temp=arr.getJSONObject(i);
+                        int qid = temp.getInt("qid");
+                        String answer=temp.getString("answer");
+                        if(ep.submitAnswer(qid).equals(answer)){
+                            ep.hisAdd(user,qid,answer,"correct Answer");
+                            ++marks;
+                        }else {
+                            ep.hisAdd(user, qid, answer, "wrong Answer");
+                        }
+                    }
+                    jsonResponse.put("success",true);
+                    jsonResponse.put("message",marks);
+
+
             }else{
                 jsonResponse.put("success",false);
-                jsonResponse.put("message",path);
                 jsonResponse.put("message",path);
             }
         }catch(Exception e){
@@ -90,6 +115,7 @@ public class AptiUserServlet extends HttpServlet {
         PrintWriter out=response.getWriter();
         out.write(jsonResponse.toString());
         out.flush();
+        out.close();
     }
     public void doGet(HttpServletRequest request,HttpServletResponse response){
         response.setContentType("application/json");
@@ -122,6 +148,8 @@ public class AptiUserServlet extends HttpServlet {
                 jsonResponse.put("message","path not found");
             }
             writer.print(jsonResponse.toString());
+            writer.flush();
+            writer.close();
         }catch(Exception e){
             jsonResponse.put("success",false);
             jsonResponse.put("error",e.getMessage());

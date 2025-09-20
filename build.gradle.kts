@@ -23,6 +23,8 @@ dependencies {
     implementation("org.postgresql:postgresql:42.7.7")
     // https://mvnrepository.com/artifact/jakarta.servlet/jakarta.servlet-api
     compileOnly("jakarta.servlet:jakarta.servlet-api:6.1.0")
+    // https://mvnrepository.com/artifact/org.mindrot/jbcrypt
+    implementation("org.mindrot:jbcrypt:0.4")
 
     // Latest Jakarta Mail for Tomcat 10/11 compatibility
     implementation("com.sun.mail:jakarta.mail:2.0.1")

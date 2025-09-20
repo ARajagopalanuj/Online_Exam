@@ -1,6 +1,7 @@
 package org.com.dao;
 
 import org.com.model.Pojo;
+import org.com.security.HashPassword;
 import org.com.security.UserCreater;
 import org.com.util.DBConnection;
 
@@ -11,41 +12,42 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ExamPortal {
-    static UserCreater uc=new UserCreater();
+    static UserCreater uc = new UserCreater();
 
 
     //polymorphism
-    public static int addData(String qus,String op1,String op2,String op3,String op4, String ans,String topic) throws SQLException {
+    public static int addData(String qus, String op1, String op2, String op3, String op4, String ans, String topic) throws SQLException {
 
-        String query="insert into mcq(question,option1,option2,option3,option4,answer,topic) values(?,?,?,?,?,?,?)";
+        String query = "insert into mcq(question,option1,option2,option3,option4,answer,topic) values(?,?,?,?,?,?,?)";
 
-        try(Connection con= DBConnection.getDbConnection();
-            PreparedStatement preparedStatement= con.prepareStatement(query)){
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-            preparedStatement.setString(1,qus);
-            preparedStatement.setString(2,op1);
-            preparedStatement.setString(3,op2);
-            preparedStatement.setString(4,op3);
-            preparedStatement.setString(5,op4);
-            preparedStatement.setString(6,ans);
-            preparedStatement.setString(7,topic);
+            preparedStatement.setString(1, qus);
+            preparedStatement.setString(2, op1);
+            preparedStatement.setString(3, op2);
+            preparedStatement.setString(4, op3);
+            preparedStatement.setString(5, op4);
+            preparedStatement.setString(6, ans);
+            preparedStatement.setString(7, topic);
 
             return preparedStatement.executeUpdate();
 
         }
 
     }
-    public static ArrayList<Pojo> showQus() throws SQLException {
-        ArrayList<Pojo> list=new ArrayList<>();
-        String query="select q_id,question from mcq";
 
-        try(Connection con=DBConnection.getDbConnection();
-            Statement statement= con.createStatement()){
-            ResultSet rs= statement.executeQuery(query);
-            while(rs.next()){
-                int id=rs.getInt("q_id");
-                String qus=rs.getString("question");
-                Pojo pojo=new Pojo(id,qus);
+    public static ArrayList<Pojo> showQus() throws SQLException {
+        ArrayList<Pojo> list = new ArrayList<>();
+        String query = "select q_id,question from mcq";
+
+        try (Connection con = DBConnection.getDbConnection();
+             Statement statement = con.createStatement()) {
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                int id = rs.getInt("q_id");
+                String qus = rs.getString("question");
+                Pojo pojo = new Pojo(id, qus);
                 list.add(pojo);
 
             }
@@ -53,27 +55,29 @@ public class ExamPortal {
         }
 
     }
+
     public static boolean delQus(int id) throws SQLException {
 
-        String query="delete from mcq where q_id=?";
+        String query = "delete from mcq where q_id=?";
         try (Connection con = DBConnection.getDbConnection();
-             PreparedStatement preparedStatement = con.prepareStatement(query)){
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             preparedStatement.setInt(1, id);
 
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
 
         }
     }
+
     public static boolean checkUser(String uname) throws SQLException {
 
-        String query="select username from users";
-        try(Connection con=DBConnection.getDbConnection();
-            Statement statement= con.createStatement()){
+        String query = "select username from users";
+        try (Connection con = DBConnection.getDbConnection();
+             Statement statement = con.createStatement()) {
 
-            ResultSet rs= statement.executeQuery(query);
-            while(rs.next()){
-                if(rs.getString("username").equals(uname)){
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                if (rs.getString("username").equals(uname)) {
                     return false;
                 }
             }
@@ -82,6 +86,7 @@ public class ExamPortal {
         }
 
     }
+
     //polymorphism
     public static boolean addData(String user) throws SQLException {
 
@@ -91,30 +96,30 @@ public class ExamPortal {
              PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             preparedStatement.setString(1, user);
-            String pass= UserCreater.createUser(user);
+            String pass = HashPassword.hashPassword(UserCreater.createUser(user));
             preparedStatement.setString(2, pass);
 
             return preparedStatement.executeUpdate() > 0;
         }
     }
+
     public String checkAuth(String user) throws SQLException {
-        String query="select password from users where username=?";
+        String query = "select password from users where username=?";
 
-        try(Connection con=DBConnection.getDbConnection();
-            PreparedStatement preparedStatement=con.prepareStatement(query)){
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-            preparedStatement.setString(1,user);
-            ResultSet rs= preparedStatement.executeQuery();
-
-
+            preparedStatement.setString(1, user);
+            ResultSet rs = preparedStatement.executeQuery();
 
 
-            if(rs.next()){
+            if (rs.next()) {
                 return rs.getString("password");
             }
             return "";
         }
     }
+
     /*public static void writeExam(Scanner scan, String userName,String topic) throws SQLException {
         String query="select * from mcq where topic=?";
         try(Connection con=DBConnection.getDbConnection();
@@ -151,10 +156,10 @@ public class ExamPortal {
             }
         }
     }*/
-    public static void hisAdd(String userName,int q_id,String answer, String status ) throws SQLException {
-        String query="insert into history (username, q_id, answer, status) values(?,?,?,?)";
-        try(Connection con=DBConnection.getDbConnection();
-            PreparedStatement preparedStatement= con.prepareStatement(query)) {
+    public static void hisAdd(String userName, int q_id, String answer, String status) throws SQLException {
+        String query = "insert into history (username, qid, answer, status) values(?,?,?,?)";
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
             preparedStatement.setString(1, userName);
             preparedStatement.setInt(2, q_id);
@@ -166,17 +171,18 @@ public class ExamPortal {
 
         }
     }
+
     public List<Pojo> getTopics() throws SQLException {
-        String query="select distinct topic from mcq";
-        List<Pojo>list=new ArrayList<>();
+        String query = "select distinct topic from mcq";
+        List<Pojo> list = new ArrayList<>();
 
-        try(Connection con=DBConnection.getDbConnection();
-            Statement statement=con.createStatement()){
+        try (Connection con = DBConnection.getDbConnection();
+             Statement statement = con.createStatement()) {
 
-            ResultSet rs=statement.executeQuery(query);
-            while(rs.next()){
-                String topic=rs.getString("topic");
-                Pojo pojo=new Pojo(topic);
+            ResultSet rs = statement.executeQuery(query);
+            while (rs.next()) {
+                String topic = rs.getString("topic");
+                Pojo pojo = new Pojo(topic);
                 list.add(pojo);
 
             }
@@ -185,25 +191,26 @@ public class ExamPortal {
         }
 
     }
+
     public List<Pojo> getQuestions(String topic) throws SQLException {
-        String query="Select qid,question,option1,option2,option3,option4,option5 from mcq where topic=?";
+        String query = "Select qid,question,option1,option2,option3,option4,option5 from mcq where topic=?";
 
-        try(Connection con=DBConnection.getDbConnection();
-            PreparedStatement preparedStatement=con.prepareStatement(query)){
-            List<Pojo>list=new ArrayList<>();
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            List<Pojo> list = new ArrayList<>();
 
-            preparedStatement.setString(1,topic);
-            ResultSet rs=preparedStatement.executeQuery();
+            preparedStatement.setString(1, topic);
+            ResultSet rs = preparedStatement.executeQuery();
 
-            while(rs.next()){
-                int id= rs.getInt("qid");
-                String question=rs.getString("question");
-                String option1=rs.getString("option1");
-                String option2=rs.getString("option2");
-                String option3=rs.getString("option3");
-                String option4=rs.getString("option4");
-                String option5=rs.getString("option5");
-                Pojo pojo=new Pojo(id,question,option1,option2,option3,option4,option5);
+            while (rs.next()) {
+                int id = rs.getInt("qid");
+                String question = rs.getString("question");
+                String option1 = rs.getString("option1");
+                String option2 = rs.getString("option2");
+                String option3 = rs.getString("option3");
+                String option4 = rs.getString("option4");
+                String option5 = rs.getString("option5");
+                Pojo pojo = new Pojo(id, question, option1, option2, option3, option4, option5);
                 list.add(pojo);
 
             }
@@ -213,45 +220,48 @@ public class ExamPortal {
     }
 
     public boolean checkAdmin(String user) throws SQLException {
-        String query="select username from users where type='admin' and username=?";
+        String query = "select username from users where type='admin' and username=?";
 
-        try(Connection con=DBConnection.getDbConnection();
-            PreparedStatement preparedStatement=con.prepareStatement(query)){
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
 
-            preparedStatement.setString(1,user);
+            preparedStatement.setString(1, user);
 
-            ResultSet rs=preparedStatement.executeQuery();
+            ResultSet rs = preparedStatement.executeQuery();
 
             return rs.next();
 
         }
 
     }
-    public boolean changePassword(String user,String password) throws SQLException {
-        String query="update users set password=? where username=? ";
-        try(Connection con=DBConnection.getDbConnection();
-        PreparedStatement preparedStatement=con.prepareStatement(query)){
 
-            preparedStatement.setString(1,password);
-            preparedStatement.setString(2,user);
+    public boolean changePassword(String user, String password) throws SQLException {
+        String query = "update users set password=? where username=? ";
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+
+            preparedStatement.setString(1, password);
+            preparedStatement.setString(2, user);
 
 
-            return preparedStatement.executeUpdate()>0;
+            return preparedStatement.executeUpdate() > 0;
 
         }
     }
-    public String submitAnswer(int qid) throws SQLException {
-        String query="select answer from mcq where qid=?";
 
-        try(Connection con=DBConnection.getDbConnection();
-        PreparedStatement preparedStatement=con.prepareStatement(query)){
-            preparedStatement.setInt(1,qid);
-            ResultSet rs= preparedStatement.executeQuery();
-            String answer="qid is in valid";
-            if(rs.next()){
-                answer=rs.getString("answer");
+    public String submitAnswer(int qid) throws SQLException {
+        String query = "select answer from mcq where qid=?";
+
+        try (Connection con = DBConnection.getDbConnection();
+             PreparedStatement preparedStatement = con.prepareStatement(query)) {
+            preparedStatement.setInt(1, qid);
+            ResultSet rs = preparedStatement.executeQuery();
+            String answer = "qid is invalid";
+            if (rs.next()) {
+                answer = rs.getString("answer");
             }
             return answer;
         }
     }
+
 }
