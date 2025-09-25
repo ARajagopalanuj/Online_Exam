@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch("  https://fe64f5a0c76c.ngrok-free.app/exam/user/register", {
+            const response = await fetch(" https://5f1536f17f30.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -44,7 +44,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            const response= await fetch("  https://fe64f5a0c76c.ngrok-free.app/exam/user/login",{
+            const response= await fetch(" https://5f1536f17f30.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
