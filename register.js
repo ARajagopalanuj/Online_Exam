@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch(" https://5f1536f17f30.ngrok-free.app/exam/user/register", {
+            const response = await fetch("  https://f6f97af516b8.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -44,7 +44,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            const response= await fetch(" https://5f1536f17f30.ngrok-free.app/exam/user/login",{
+            const response= await fetch(" https://f6f97af516b8.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
@@ -56,12 +56,14 @@ if(loginForm){
                 msg.textContent =data.message; 
                 setTimeout(()=>{
                 window.location.href="dashboard.html";
+                console.log(msg.textContent);
                 },1000)
             }else{
                 console.log('unsuccess');
                 msg.style.color = "red";
                 msg.textContent = data.message;
             }
+            
         }catch(error){
             console.error("Error:", error);
             msg.style.color = "red";
