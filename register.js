@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch("  https://f6f97af516b8.ngrok-free.app/exam/user/register", {
+            const response = await fetch(" https://478e9b713e32.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -44,7 +44,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            const response= await fetch(" https://f6f97af516b8.ngrok-free.app/exam/user/login",{
+            const response= await fetch("https://478e9b713e32.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
@@ -87,7 +87,7 @@ if(loginForm){
         button.textContent="AArambikalaama";
 
         button.addEventListener("click",async ()=>{
-            const apiUrl=`https://f6f97af516b8.ngrok-free.app/exam/user/${element.topic}`;
+            const apiUrl=`https://478e9b713e32.ngrok-free.app/exam/user/${element.topic}`;
             try{
                 const response=await fetch(apiUrl,{
                     method:"GET",
