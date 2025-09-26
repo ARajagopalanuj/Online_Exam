@@ -1,3 +1,5 @@
+const { createElement } = require("react");
+
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
@@ -94,8 +96,12 @@ if(loginForm){
                     headers:{"Content-Type":application/json}
                 });
                 const data=await response.json();
+                let questionSet=data.list;
+
+                    localStorage.setItem("questions",questionSet);
+                    console.log(questionSet);
             }catch(error){
-                console.error("Error:",error);
+                console.error("Error:",error.message);
 
             }
         })
@@ -110,3 +116,4 @@ if(loginForm){
        });
 }
 });
+div.textContent
