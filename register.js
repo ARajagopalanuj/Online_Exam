@@ -54,8 +54,9 @@ if(loginForm){
                 console.log('success');
                 msg.style.color = "green";
                 msg.textContent =data.message; 
-                let topics=data.topics;
+                let topics=data.topic;
                 localStorage.setItem("topic",JSON.stringify(topics));
+                
                 setTimeout(()=>{
                 window.location.href="dashboard.html";
                 
