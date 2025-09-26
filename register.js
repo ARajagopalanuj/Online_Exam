@@ -54,7 +54,7 @@ if(loginForm){
                 console.log('success');
                 msg.style.color = "green";
                 msg.textContent =data.message; 
-                let topics=data.topic;
+                let topics=data.topics;
                 localStorage.setItem("topic",JSON.stringify(topics));
                 
                 setTimeout(()=>{
@@ -78,8 +78,9 @@ if(loginForm){
  if(container){
  const topics=localStorage.getItem("topic")?JSON.parse(localStorage.getItem("topic")):[];
        
-       
+       console.log(10);
        topics.forEach(element => {
+        console.log(element.topic);
         let div=document.createElement("div");
         div.textContent=element.topic;
         container.appendChild(div);
