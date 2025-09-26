@@ -86,6 +86,24 @@ if(loginForm){
         let button=document.createElement("button");
         button.textContent="AArambikalaama";
 
+        button.addEventListener("click",async ()=>{
+            const apiUrl=`https://f6f97af516b8.ngrok-free.app/exam/user/${element.topic}`;
+            try{
+                const response=await fetch(apiUrl,{
+                    method:"GET",
+                    headers:{"Content-Type":application/json}
+                });
+                const data=await response.json();
+            }catch(error){
+                console.error("Error:",error);
+
+            }
+        })
+
+        div.appendChild(document.createElement("br"));
+
+        div.appendChild(button);
+
         container.appendChild(div);
         
         
