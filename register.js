@@ -83,9 +83,9 @@ if(loginForm){
       
         let div=document.createElement("div");
         div.textContent=element.topic;
-        let button=documet.createElement("button");
+        let button=document.createElement("button");
         button.textContent="AArambikalaama";
-        
+
         container.appendChild(div);
         
         
