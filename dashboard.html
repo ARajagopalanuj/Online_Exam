@@ -16,7 +16,7 @@
 
     
     <script>
-       let topics= localStorage.getItem("topic");
+       let topics=localStorage.getItem("topic")?JSON.parse(localStorage.getItem("topic")):[];
        
        topics.array.forEach(element => {
         let div=createElement("div");
