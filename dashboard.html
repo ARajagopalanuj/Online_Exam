@@ -11,6 +11,7 @@
     <br><br>
     <hr>
     <h2>topics</h2>
+    <div id="container"></div>
     </center>
 
     
@@ -20,6 +21,7 @@
        topics.array.forEach(element => {
         let div=createElement("div");
         div.textContent=element;
+        container.appendChild(div);
         
         
        });
