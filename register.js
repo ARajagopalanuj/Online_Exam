@@ -69,8 +69,21 @@ if(loginForm){
         }catch(error){
             console.error("Error:", error);
             msg.style.color = "red";
-            msg.textContent = "Backend not reachable! "+data.message;
+            msg.textContent = "Backend not reachable! "+error.message;
         }
     })
+ }
+ const container=document.getElementById("container");
+ if(container){
+ const topics=localStorage.getItem("topic")?JSON.parse(localStorage.getItem("topic")):[];
+       
+       
+       topics.forEach(element => {
+        let div=document.createElement("div");
+        div.textContent=element.topic;
+        container.appendChild(div);
+        
+        
+       });
 }
 });
