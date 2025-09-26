@@ -54,9 +54,11 @@ if(loginForm){
                 console.log('success');
                 msg.style.color = "green";
                 msg.textContent =data.message; 
+                let topics=data.topics;
+                locatStorage.setItem("topic",topics);
                 setTimeout(()=>{
                 window.location.href="dashboard.html";
-                console.log(msg.textContent);
+                
                 },1000)
             }else{
                 console.log('unsuccess');

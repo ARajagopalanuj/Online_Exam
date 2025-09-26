@@ -14,6 +14,15 @@
     </center>
 
     
-    <script src="register.js"></script>
+    <script>
+       let topics= localStorage.getItem("topic");
+       
+       topics.array.forEach(element => {
+        let div=createElement("div");
+        div.textContent=element;
+        
+        
+       });
+    </script>
 </body>
 </html>
