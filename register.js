@@ -1,4 +1,4 @@
-const { createElement } = require("react");
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("registerForm");
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", () => {
         } catch (error) {
             console.error("Error:", error);
             msg.style.color = "red";
-            msg.textContent = "Backend not reachable! "+data.message;
+            msg.textContent = "Backend not reachable! "+error.message;
         }
     });
 }
@@ -93,12 +93,12 @@ if(loginForm){
             try{
                 const response=await fetch(apiUrl,{
                     method:"GET",
-                    headers:{"Content-Type":application/json}
+                    headers:{"Content-Type":"application/json"}
                 });
                 const data=await response.json();
                 let questionSet=data.list;
 
-                    localStorage.setItem("questions",questionSet);
+                    localStorage.setItem("questions",JSON.stringify(questionSet));
                     console.log(questionSet);
             }catch(error){
                 console.error("Error:",error.message);
@@ -116,4 +116,3 @@ if(loginForm){
        });
 }
 });
-div.textContent
