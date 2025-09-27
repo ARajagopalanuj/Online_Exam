@@ -92,13 +92,13 @@ if(loginForm){
             const apiUrl=`https://9aa6e279a946.ngrok-free.app/exam/user/${element.topic}`;
             try{
                 console.log(apiUrl);
-                const response=await fetch(apiUrl,{
-                    method:"GET",
-                    headers:{"Content-Type":"application/json"}
-                });
+            const response = await fetch(apiUrl, { method: "GET" });
+
                 if(!response.ok){
                     throw new Error("HTTP error");
                 }
+                const contentType=response.headers.get("content-type");
+                if(contentType&& contentType.includes("application/json")){
                 const data=await response.json();
                 let questionSet=data.list;
                 if(data.success){
@@ -111,7 +111,12 @@ if(loginForm){
                 }else if(data.error){
                     console.error("backendException ",data.error);
                 }
-            }
+            }else{
+                const text=await response.text();
+                console.error(text);
+            
+                }
+        }
             catch (error){
                 console.error("Error:",error.message);
 
