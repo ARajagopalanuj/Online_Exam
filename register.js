@@ -101,7 +101,7 @@ if(loginForm){
                     localStorage.setItem("questions",JSON.stringify(questionSet));
                     console.log(questionSet);
             }catch(error){
-                console.error("Error:",error.message);
+                console.error("Error:",error.error);
 
             }
         })
