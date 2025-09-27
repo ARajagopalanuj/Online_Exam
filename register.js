@@ -91,6 +91,7 @@ if(loginForm){
         button.addEventListener("click",async ()=>{
             const apiUrl=` https://9aa6e279a946.ngrok-free.app/exam/user/${element.topic}`;
             try{
+                console.log(apiUrl);
                 const response=await fetch(apiUrl,{
                     method:"GET",
                     headers:{"Content-Type":"application/json"}
