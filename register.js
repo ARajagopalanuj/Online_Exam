@@ -89,7 +89,7 @@ if(loginForm){
         button.textContent="AArambikalaama";
 
         button.addEventListener("click",async ()=>{
-            const apiUrl=` https://9aa6e279a946.ngrok-free.app/exam/user/${element.topic}`;
+            const apiUrl="https://9aa6e279a946.ngrok-free.app/exam/user/${element.topic}";
             try{
                 console.log(apiUrl);
                 const response=await fetch(apiUrl,{
