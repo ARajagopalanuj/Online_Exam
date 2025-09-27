@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch(" https://1850a6cff694.ngrok-free.app/exam/user/register", {
+            const response = await fetch("https://1850a6cff694.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -88,49 +88,45 @@ if(loginForm){
         let button=document.createElement("button");
         button.textContent="AArambikalaama";
 
-        button.addEventListener("click",async ()=>{
-            const apiUrl=`https://1850a6cff694.ngrok-free.app/exam/user/${element.topic}`;
-            try{
-                console.log(apiUrl);
-            const response = await fetch(apiUrl, { method: "GET" });
+        button.addEventListener("click", async () => {
+    const apiUrl = `https://1850a6cff694.ngrok-free.app/exam/user/${element.topic}`;
 
-                if(!response.ok){
-                    throw new Error("HTTP error");
-                }
-                const contentType=response.headers.get("content-type");
-                if(contentType&& contentType.includes("application/json")){
-                const data=await response.json();
-                let questionSet=data.list;
-                if(data.success){
+    try {
+        console.log("Fetching questions from:", apiUrl);
+        const response = await fetch(apiUrl, { method: "GET" });
 
-                    localStorage.setItem("questions",JSON.stringify(questionSet));
-                    console.log(questionSet);
-                    window.location.href="exam.html";
-                }else if(data.message){
-                    console.error(data.message);
-
-                }else if(data.error){
-                    console.error("backendException ",data.error);
-                }
-            }else{
-                const text=await response.text();
-                console.error(text);
-            
-                }
+        if (!response.ok) {
+            throw new Error("HTTP error " + response.status);
         }
-            catch (error){
-                console.error("Error:",error.message);
 
-            }
-        })
+        const contentType = response.headers.get("content-type");
+        if (!contentType || !contentType.includes("application/json")) {
+            throw new Error("Expected JSON response, got: " + contentType);
+        }
 
-        div.appendChild(document.createElement("br"));
+        const data = await response.json();
 
-        div.appendChild(button);
+        if (data.success) {
+            const questionSet = data.list;
+            localStorage.setItem("questions", JSON.stringify(questionSet));
+            console.log("Questions fetched:", questionSet);
+            window.location.href = "exam.html";
+        } else {
+            console.error("Backend error:", data.message || data.error);
+            alert("Failed to fetch questions: " + (data.message || data.error));
+        }
 
-        container.appendChild(div);
-        
-        
+    } catch (error) {
+        console.error("Error fetching questions:", error.message);
+        alert("Cannot reach backend! " + error.message);
+    }
+});
+
+// Append button and spacing to the div
+div.appendChild(document.createElement("br"));
+div.appendChild(button);
+container.appendChild(div);
+
        });
 }
 const exam=document.getElementById("exam")
