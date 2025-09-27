@@ -93,7 +93,13 @@ if(loginForm){
 
     try {
         console.log("Fetching questions from:", apiUrl);
-        const response = await fetch(apiUrl, { method: "GET" });
+        const response = await fetch(apiUrl, { 
+            method: "GET" ,
+        
+          headers: {
+                        "ngrok-skip-browser-warning": "true"
+                    }
+                });
 
         if (!response.ok) {
             throw new Error("HTTP error " + response.status);
@@ -104,7 +110,7 @@ if(loginForm){
             throw new Error("Expected JSON response, got: " + contentType);
         }
 
-        const data = await response.json();
+        const data = await response.json();      
 
         if (data.success) {
             const questionSet = data.list;
@@ -122,7 +128,7 @@ if(loginForm){
     }
 });
 
-// Append button and spacing to the div
+
 div.appendChild(document.createElement("br"));
 div.appendChild(button);
 container.appendChild(div);
