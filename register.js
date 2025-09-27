@@ -95,13 +95,22 @@ if(loginForm){
                     method:"GET",
                     headers:{"Content-Type":"application/json"}
                 });
+                if(!response.ok){
+                    throw new Error("HTTP error");
+                }
                 const data=await response.json();
                 let questionSet=data.list;
+                if(data.success){
 
                     localStorage.setItem("questions",JSON.stringify(questionSet));
                     console.log(questionSet);
-            }catch(error){
-                console.error("Error:",data.error);
+                }else if(data.message){
+                    console.error(data.message);
+
+                }
+            }
+            catch (error){
+                console.error("Error:",response.status);
 
             }
         })
