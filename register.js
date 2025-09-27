@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch("https://9aa6e279a946.ngrok-free.app/exam/user/register", {
+            const response = await fetch(" https://1850a6cff694.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -46,7 +46,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            const response= await fetch("https://9aa6e279a946.ngrok-free.app/exam/user/login",{
+            const response= await fetch("https://1850a6cff694.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
@@ -89,7 +89,7 @@ if(loginForm){
         button.textContent="AArambikalaama";
 
         button.addEventListener("click",async ()=>{
-            const apiUrl=`https://9aa6e279a946.ngrok-free.app/exam/user/${element.topic}`;
+            const apiUrl=`https://1850a6cff694.ngrok-free.app/exam/user/${element.topic}`;
             try{
                 console.log(apiUrl);
             const response = await fetch(apiUrl, { method: "GET" });
@@ -105,6 +105,7 @@ if(loginForm){
 
                     localStorage.setItem("questions",JSON.stringify(questionSet));
                     console.log(questionSet);
+                    window.location.href="exam.html";
                 }else if(data.message){
                     console.error(data.message);
 
@@ -132,4 +133,94 @@ if(loginForm){
         
        });
 }
+const exam=document.getElementById("exam")
+if(exam){
+    const questions=localStorage.getItem("questions")?JSON.parse(localStorage.getItem("questions")):[];
+
+    questions.forEach((element,index)=>{
+       let div= document.createElement("div");
+       let question=document.createElement("span");
+       question.textContent=element.question;
+       function createOption(optionText, optionValue){
+        let label=document.createElement("label");
+            let radio=document.createElement("input");
+            radio.type="radio"
+            radio.name="question_"+index;
+            radio.value=optionValue;
+            label.append(radio);
+            label.appendChild(document.createTextNode(" "+optionText));
+            return label;
+        }
+
+       
+       
+
+
+        div.append(question);
+         div.appendChild(document.createElement("br"));
+        div.appendChild(createOption(element.op1,element.op1));
+         div.appendChild(document.createElement("br"));
+        div.appendChild(createOption(element.op2,element.op2));
+         div.appendChild(document.createElement("br"));
+        div.appendChild(createOption(element.op3,element.op3));
+         div.appendChild(document.createElement("br"));
+         div.appendChild(createOption(element.op4,element.op4));
+         div.appendChild(document.createElement("br"));
+         div.appendChild(createOption(element.op5,element.op5));
+            
+
+
+       
+       div.appendChild(document.createElement("br"));
+       div.appendChild(document.createElement("hr"));
+       exam.appendChild(div);
+       
+
+    })
+    let button=document.createElement("button");
+    button.id="submitBtn";
+  
+    button.appendChild(document.createTextNode("submit"));
+    exam.appendChild(button);
+    const submitBtn=document.getElementById("submitBtn");
+submitBtn.addEventListener("click",async()=>{
+    const answers=[];
+    questions.forEach((element,index)=>{
+        const selected=document.querySelector(`input[name="question_${index}"]:checked`);
+        answers.push({
+            qid:element.id,
+            answer:selected?selected.value:"none"
+        })
+
+    })
+    const answerSet={
+        questions:answers
+    }
+    console.log(answerSet)
+
+    try{
+        const responseAnswer=await fetch("https://1850a6cff694.ngrok-free.app/exam/user/writeExam",{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(answerSet)
+        });
+
+        const data=await responseAnswer.json();
+        console.log(data.success);
+        console.log(data.message);
+        if(data.success){
+            
+            alert(`successfully\n${data.message}/${answers.length}`);
+        }else{
+            alert(`Failed ${data.message||data.error||"unknown error"}`);
+        }
+    }catch(error){
+        console.error("Error:",error.message);
+        alert("aaaa"+error.message);
+
+    }
+    
+})
+}
+
 });
