@@ -107,10 +107,12 @@ if(loginForm){
                 }else if(data.message){
                     console.error(data.message);
 
+                }else if(data.error){
+                    console.error("backendException ",data.error);
                 }
             }
             catch (error){
-                console.error("Error:",response.status);
+                console.error("Error:",error.message);
 
             }
         })
