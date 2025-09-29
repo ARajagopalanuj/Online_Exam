@@ -1,6 +1,6 @@
 
 
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch("https://8d5a43f8b7da.ngrok-free.app/exam/user/register", {
+            const response = await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -35,6 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 }
 
+
 if(loginForm){
     loginForm.addEventListener("submit",async (event)=>{
         event.preventDefault();
@@ -46,7 +47,8 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            const response= await fetch("https://8d5a43f8b7da.ngrok-free.app/exam/user/login",{
+            sessionStorage.setItem("username",user);
+            const response= await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
@@ -59,10 +61,19 @@ if(loginForm){
                 let topics=data.topics;
                 localStorage.setItem("topic",JSON.stringify(topics));
                 
+                 if(data.admin){
+                     setTimeout(()=>{
+                window.location.href="admin.html";
+                
+                },1000)
+
+                 }else{
+
                 setTimeout(()=>{
                 window.location.href="dashboard.html";
                 
                 },1000)
+                }
             }else{
                 console.log('unsuccess');
                 msg.style.color = "red";
@@ -89,7 +100,7 @@ if(loginForm){
         button.textContent="AArambikalaama";
 
         button.addEventListener("click", async () => {
-    const apiUrl = `https://8d5a43f8b7da.ngrok-free.app/exam/user/${element.topic}`;
+    const apiUrl = ` https://8fce6d8e7493.ngrok-free.app/exam/user/${element.topic}`;
 
     try {
         console.log("Fetching questions from:", apiUrl);
@@ -198,10 +209,10 @@ submitBtn.addEventListener("click",async()=>{
     const answerSet={
         questions:answers
     }
-    console.log(answerSet)
+    
 
     try{
-        const responseAnswer=await fetch("https://8d5a43f8b7da.ngrok-free.app/exam/user/writeExam",{
+        const responseAnswer=await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/writeExam",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(answerSet)
@@ -213,16 +224,83 @@ submitBtn.addEventListener("click",async()=>{
         if(data.success){
             
             alert(`successfully\n${data.message}/${answers.length}`);
+            window.location.href="result.html";
         }else{
             alert(`Failed ${data.message||data.error||"unknown error"}`);
         }
     }catch(error){
         console.error("Error:",error.message);
-        alert("aaaa"+error.message);
+        alert(error.message);
 
     }
     
 })
+
 }
+let history=document.getElementById("historyTable");
+
+
+if(history){
+    const userHistory={
+        user:sessionStorage.getItem("username")
+    }
+   console.log(userHistory);
+    
+    try{
+    const response=await fetch("https://8fce6d8e7493.ngrok-free.app/exam/user/showHistory",{
+        method:"post",
+         headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(userHistory)
+    })
+    const data=await response.json();
+    const historySet=data.historyList;
+    
+    if(data.success){
+        historySet.forEach((element,index)=>{
+            console.log(historySet);
+        
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+        td1.textContent=index;
+        let td2=document.createElement("td");
+        td2.textContent=element.questionId;
+        let td3=document.createElement("td");
+        td3.textContent=element.status;
+        let td4=document.createElement("td");
+        td4.textContent=element.answer;
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+        tr.appendChild(td4);
+        history.appendChild(tr);
+
+        });
+    }
+}catch(error){
+    console.error(data.message);
+
+}
+}
+answersubmit.addEventListener("click",()=>{
+    const question=document.getElementById("question").value.trim();
+    const option1=document.getElementById("option1").value.trim();
+    const option2=document.getElementById("option2").value.trim();
+    const option3=document.getElementById("option3").value.trim();
+    const option4= document.getElementById("option4").value.trim();
+    const option5= document.getElementById("option5").value.trim();
+    const answer=document.getElementById("answer").value.trim();
+    console.log(question ,option1,option2, option3, option4 , option5 , answer)
+
+    if(option1==null||option2==null||option3==null||option4==null||option5==null||question==null){
+        alert("must fill all fields");
+    }
+    else if(answer===option1||answer===option2||answer===option3||answer===option4||answer===option5){
+        console.log("raja");
+    }else{
+        alert("Enter a valid answer");
+    }
+})
+
 
 });
