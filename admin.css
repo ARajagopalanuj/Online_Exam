@@ -91,6 +91,13 @@ hr {
     border-top: 1px solid #eee;
     margin: 20px 0;
 }
+p.intro {
+    font-style: italic;
+    color: #666;
+    margin-bottom: 18px;
+    font-size: 14px;
+}
+
 p.redirect {
     margin-top: 20px;
     font-size: 14px;

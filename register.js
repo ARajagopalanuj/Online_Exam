@@ -268,11 +268,14 @@ if(history){
         td3.textContent=element.status;
         let td4=document.createElement("td");
         td4.textContent=element.answer;
+        let td5=document.createElement("td");
+        td5.textContent=element.correctAnswer;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        tr.appendChild(td5);
         history.appendChild(tr);
 
         });
