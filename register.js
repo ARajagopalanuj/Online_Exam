@@ -285,6 +285,8 @@ if(history){
 
 }
 }
+const answersubmit=document.getElementById("answersubmit");
+if(answersubmit){
 answersubmit.addEventListener("click",()=>{
     const question=document.getElementById("question").value.trim();
     const option1=document.getElementById("option1").value.trim();
@@ -304,6 +306,7 @@ answersubmit.addEventListener("click",()=>{
         alert("Enter a valid answer");
     }
 })
+}
 
 
 });
