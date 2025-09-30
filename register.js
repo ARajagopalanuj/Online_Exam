@@ -149,7 +149,7 @@ container.appendChild(div);
 const exam=document.getElementById("exam")
 if(exam){
     const questions=localStorage.getItem("questions")?JSON.parse(localStorage.getItem("questions")):[];
-
+  
     questions.forEach((element,index)=>{
        let div= document.createElement("div");
        let question=document.createElement("span");
@@ -285,28 +285,66 @@ if(history){
 
 }
 }
+
 const answersubmit=document.getElementById("answersubmit");
 if(answersubmit){
-answersubmit.addEventListener("click",()=>{
+answersubmit.addEventListener("click",async ()=>{
+    const topic =document.getElementById("fixedValue").value.trim();
     const question=document.getElementById("question").value.trim();
     const option1=document.getElementById("option1").value.trim();
     const option2=document.getElementById("option2").value.trim();
     const option3=document.getElementById("option3").value.trim();
     const option4= document.getElementById("option4").value.trim();
-    const option5= document.getElementById("option5").value.trim();
     const answer=document.getElementById("answer").value.trim();
-    console.log(question ,option1,option2, option3, option4 , option5 , answer)
 
-    if(option1==null||option2==null||option3==null||option4==null||option5==null||question==null){
-        alert("must fill all fields");
+      const adminMsg=document.getElementById("responseadmin");
+    
+    const addQuestion={
+        question:question,
+        option1:option1,
+        option2:option2,
+        option3:option3,
+        option4:option4,
+        answer:answer,
+        topic:topic
     }
-    else if(answer===option1||answer===option2||answer===option3||answer===option4||answer===option5){
-        console.log("raja");
+    
+    
+if (
+    !question || !option1 || !option2 || !option3 || !option4 || !answer
+) {
+    alert("Must fill all fields");
+} 
+else if ([option1, option2, option3, option4].includes(answer)) {
+    const response=await fetch("http://localhost:8080/exam/admin/addData",{
+        method:"POST",
+         headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(addQuestion)
+
+    })
+    console.log(question ,option1,option2, option3, option4  , answer)
+    const data=await response.json();
+    if(data.success){
+        adminMsg.style.color="green";
+        adminMsg.textContent=data.message;
+        
     }else{
-        alert("Enter a valid answer");
+        adminMsg.style.color="red";
+        adminMsg.textContent=data.message;
     }
-})
+} 
+else {
+    alert("Enter a valid answer");
 }
 
+})
+}
+function generateValue(){
+    let code=Math.floor(100000+ Math.random()*900000).toString();
+
+    let today=new Date();
+    document.getElementById("fixedValue").value=code+" | "+(today.toString().substring(0,16));
+}
+ window.onload=generateValue;
 
 });
