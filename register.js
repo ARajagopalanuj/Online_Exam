@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     form.addEventListener("submit", async (event) => {
         event.preventDefault(); // stop auto-redirect
 
-        const user = document.getElementById("reg-username").value;
+        const user = document.getElementById("reg-username").value.trim();
 
         try {
             const response = await fetch(url+"/exam/user/register", {
