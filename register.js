@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
             });
-
+            console.log(url);
             const data = await response.json();
 
             if (data.success) {
@@ -347,7 +347,6 @@ else {
 }
 
 })
-}
 function generateValue(){
     let code=Math.floor(100000+ Math.random()*900000).toString();
 
@@ -355,6 +354,10 @@ function generateValue(){
     document.getElementById("fixedValue").value=code+" | "+(today.toString().substring(0,16));
 }
  window.onload=generateValue;
+
+
+
+}
 
  const textCode=document.getElementById("testCode").value.trim();
 
