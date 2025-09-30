@@ -295,7 +295,10 @@ answersubmit.addEventListener("click",async ()=>{
     const option2=document.getElementById("option2").value.trim();
     const option3=document.getElementById("option3").value.trim();
     const option4= document.getElementById("option4").value.trim();
-    const answer=document.getElementById("answer").value.trim();
+    const answer=document.getElementsById("answer").value.trim();
+    if(answer===""){
+        answer="none of the above";
+    }
 
       const adminMsg=document.getElementById("responseadmin");
     
@@ -315,18 +318,23 @@ if (
 ) {
     alert("Must fill all fields");
 } 
-else if ([option1, option2, option3, option4].includes(answer)) {
+else if ([option1, option2, option3, option4,"none of the above"].includes(answer)) {
     const response=await fetch("https://8b39b194d10a.ngrok-free.app/exam/admin/insert",{
         method:"POST",
          headers:{"Content-Type":"application/json"},
             body:JSON.stringify(addQuestion)
 
     })
-    console.log(question ,option1,option2, option3, option4  , answer)
+    console.log(question ,option1,option2, option3, option4 , answer)
     const data=await response.json();
     if(data.success){
         adminMsg.style.color="green";
         adminMsg.textContent=data.message;
+             question=document.getElementById("question")="";
+            option1=document.getElementById("option1")="";
+            option2=document.getElementById("option2")="";
+            option3=document.getElementById("option3")="";
+            answer=document.getElementById("answer")="";
         
     }else{
         adminMsg.style.color="red";
@@ -346,5 +354,11 @@ function generateValue(){
     document.getElementById("fixedValue").value=code+" | "+(today.toString().substring(0,16));
 }
  window.onload=generateValue;
+
+ const textCode=document.getElementById("testCode").value.trim();
+
+ if(textCode){
+    
+ }
 
 });
