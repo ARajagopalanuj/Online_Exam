@@ -358,7 +358,25 @@ function generateValue(){
  const textCode=document.getElementById("testCode").value.trim();
 
  if(textCode){
-    
+    const code={topic:textCode}
+
+    const response=await fetch("https://8b39b194d10a.ngrok-free.app/exam/admin/viaCode"{
+        method:"POST",
+        headers:{"Content-Type":"application/json"},
+            body:JSON.stringify(addQuestion)
+    })
+    const data= await response.json();
+
+    if(data.success){
+         const questionSet = data.list;
+            localStorage.setItem("questions", JSON.stringify(questionSet));
+            console.log("Questions fetched:", questionSet);
+            window.location.href = "exam.html";
+        
+    }else{
+        alert(data.message);
+    }
+
  }
 
 });
