@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         const user = document.getElementById("reg-username").value;
 
         try {
-            const response = await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/register", {
+            const response = await fetch("https://8b39b194d10a.ngrok-free.app/exam/user/register", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ user })
@@ -48,7 +48,7 @@ if(loginForm){
                 password:password
             }
             sessionStorage.setItem("username",user);
-            const response= await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/login",{
+            const response= await fetch("https://8b39b194d10a.ngrok-free.app/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
                 body:JSON.stringify(userDetails)
@@ -100,7 +100,7 @@ if(loginForm){
         button.textContent="AArambikalaama";
 
         button.addEventListener("click", async () => {
-    const apiUrl = ` https://8fce6d8e7493.ngrok-free.app/exam/user/${element.topic}`;
+    const apiUrl = `https://8b39b194d10a.ngrok-free.app/exam/user/${element.topic}`;
 
     try {
         console.log("Fetching questions from:", apiUrl);
@@ -212,7 +212,7 @@ submitBtn.addEventListener("click",async()=>{
     
 
     try{
-        const responseAnswer=await fetch(" https://8fce6d8e7493.ngrok-free.app/exam/user/writeExam",{
+        const responseAnswer=await fetch("https://8b39b194d10a.ngrok-free.app/exam/user/writeExam",{
             method:"POST",
             headers:{"Content-Type":"application/json"},
             body:JSON.stringify(answerSet)
@@ -247,7 +247,7 @@ if(history){
    console.log(userHistory);
     
     try{
-    const response=await fetch("https://8fce6d8e7493.ngrok-free.app/exam/user/showHistory",{
+    const response=await fetch("https://8b39b194d10a.ngrok-free.app/exam/user/showHistory",{
         method:"post",
          headers:{"Content-Type":"application/json"},
             body:JSON.stringify(userHistory)
@@ -316,7 +316,7 @@ if (
     alert("Must fill all fields");
 } 
 else if ([option1, option2, option3, option4].includes(answer)) {
-    const response=await fetch("http://localhost:8080/exam/admin/addData",{
+    const response=await fetch("https://8b39b194d10a.ngrok-free.app/exam/admin/insert",{
         method:"POST",
          headers:{"Content-Type":"application/json"},
             body:JSON.stringify(addQuestion)
