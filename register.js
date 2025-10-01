@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://04084dc874a2.ngrok-free.app";
+    const url="https://5319a8aa0ac8.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -126,7 +126,7 @@ if(loginForm){
 
         if (data.success) {
             const questionSet = data.list;
-            localStorage.setItem("questions", JSON.stringify(questionSet));
+            SessionStorage.setItem("questions", JSON.stringify(questionSet));
             console.log("Questions fetched:", questionSet);
             window.location.href = "exam.html";
         } else {
@@ -149,7 +149,7 @@ container.appendChild(div);
 }
 const exam=document.getElementById("exam")
 if(exam){
-    const questions=localStorage.getItem("questions")?JSON.parse(localStorage.getItem("questions")):[];
+    const questions=sessionStorage.getItem("questions")?JSON.parse(sessionStorage.getItem("questions")):[];
   
     questions.forEach((element,index)=>{
        let div= document.createElement("div");
@@ -296,11 +296,24 @@ answersubmit.addEventListener("click",async ()=>{
     const option2=document.getElementById("option2").value.trim();
     const option3=document.getElementById("option3").value.trim();
     const option4= document.getElementById("option4").value.trim();
-    const answer=document.getElementsById("answer").value.trim();
-    if(answer===""){
-        answer="none of the above";
+    let answer="";
+    let selected=document.querySelector("input[name='answer']:checked");
+    if(selected){
+        answer=selected.value;
+        if(answer=="option1"){
+            answer=option1;
+        }
+        else if(answer=="option2"){
+            answer=option2;
+        }else if(answer=='option3'){
+            answer=option3;
+        }else if(answer=='option4'){
+            answer=option4;
+        }else{
+            answer="none of the above";
+        }
     }
-
+  
       const adminMsg=document.getElementById("responseadmin");
     
     const addQuestion={
@@ -331,11 +344,16 @@ else if ([option1, option2, option3, option4,"none of the above"].includes(answe
     if(data.success){
         adminMsg.style.color="green";
         adminMsg.textContent=data.message;
-             question=document.getElementById("question")="";
-            option1=document.getElementById("option1")="";
-            option2=document.getElementById("option2")="";
-            option3=document.getElementById("option3")="";
-            answer=document.getElementById("answer")="";
+            document.getElementById("question").value="";
+            document.getElementById("option1").value="";
+            document.getElementById("option2").value="";
+            document.getElementById("option3").value="";
+            document.getElementById("option4").value="";
+            let removeChoice=document.querySelector("input[name='answer']:checked");
+            if(removeChoice){
+                removeChoice.checked=false;
+            }
+
         
     }else{
         adminMsg.style.color="red";
@@ -344,6 +362,7 @@ else if ([option1, option2, option3, option4,"none of the above"].includes(answe
 } 
 else {
     alert("Enter a valid answer");
+    console.log(answer);
 }
 
 })
@@ -358,23 +377,31 @@ function generateValue(){
 
 
 }
+ const dashboard=document.getElementById("enterSession");
+ 
+ if(dashboard){
+    console.log("hello");
+dashboard.addEventListener("click", async (event) =>{
+    event.preventDefault();
+    console.log("hi")
 
  const textCode=document.getElementById("testCode").value.trim();
 
  if(textCode){
     const code={topic:textCode}
 
-    const response=await fetch(url+"/exam/admin/viaCode",{
+    const response=await fetch(url+"/exam/user/viaCode",{
         method:"POST",
         headers:{"Content-Type":"application/json"},
-            body:JSON.stringify(addQuestion)
+            body:JSON.stringify(code)
     })
     const data= await response.json();
+    console.log(data);
 
     if(data.success){
-         const questionSet = data.list;
-            localStorage.setItem("questions", JSON.stringify(questionSet));
-            console.log("Questions fetched:", questionSet);
+         const questionSet = data.questionList;
+            sessionStorage.setItem("questions", JSON.stringify(questionSet));
+            console.log("Questions fetched:", data.questionList);
             window.location.href = "exam.html";
         
     }else{
@@ -382,5 +409,7 @@ function generateValue(){
     }
 
  }
+ });
+}
 
 });

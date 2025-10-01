@@ -1,17 +1,24 @@
-
+/* 🌟 Base Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+    background: linear-gradient(120deg, #f4f6f8, #e0f7fa, #f4f6f8);
+    background-size: 200% 200%;
+    animation: gradientMove 6s infinite alternate;
     color: #333;
     margin: 0;
     padding: 0;
+}
+
+/* Gradient animation */
+@keyframes gradientMove {
+    0% { background-position: left top; }
+    100% { background-position: right bottom; }
 }
 
 center {
     display: block;
     padding: 20px;
 }
-
 
 h1 {
     color: #1a73e8;
@@ -26,7 +33,7 @@ h2 {
     margin-bottom: 20px;
 }
 
-
+/* 🌟 Container + Cards */
 #container {
     display: flex;
     flex-wrap: wrap; 
@@ -49,8 +56,8 @@ h2 {
 }
 
 #container > div:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(26, 115, 232, 0.25);
 }
 
 #container > div span {
@@ -60,7 +67,7 @@ h2 {
     text-align: center;
 }
 
-
+/* 🌟 Buttons */
 #container > div button {
     background-color: #1a73e8;
     color: white;
@@ -69,10 +76,68 @@ h2 {
     padding: 10px 20px;
     font-size: 1em;
     cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, transform 0.2s, box-shadow 0.2s;
 }
 
 #container > div button:hover {
     background-color: #155ab6;
     transform: translateY(-2px);
+}
+
+#container > div button:active {
+    transform: scale(0.95);
+    box-shadow: 0 0 10px rgba(26, 115, 232, 0.4);
+}
+
+/* 🌟 Input Styling */
+input[type="text"], input[type="number"], input[type="email"], input[type="password"], input[type="search"] {
+    width: 90%;
+    padding: 10px 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+    border-color: #1a73e8;
+    box-shadow: 0 0 6px rgba(26, 115, 232, 0.3);
+}
+
+/* 🌟 Floating Label Inputs */
+.input-group {
+    position: relative;
+    width: 90%;
+    margin: 15px 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 1em;
+    outline: none;
+    background: transparent;
+}
+
+.input-group label {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    color: #777;
+    transition: 0.3s;
+    pointer-events: none;
+    background: #fff;
+    padding: 0 4px;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 8px;
+    font-size: 0.8em;
+    color: #1a73e8;
 }
