@@ -88,7 +88,7 @@ if(loginForm){
         }
     })
  }
- const container=document.getElementById("container");
+ const container=document.getElementById("containe");// rewrite the containe to container to get all topics in show the dashboard page
  if(container){
     
  const topics=localStorage.getItem("topic")?JSON.parse(localStorage.getItem("topic")):[];
