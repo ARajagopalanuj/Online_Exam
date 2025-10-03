@@ -386,8 +386,8 @@ function generateValue(){
     let code=Math.floor(100000+ Math.random()*900000).toString();
 
     let today=new Date();
-    const examCode=code+" | "+(today.toString().substring(0,16));
-    sessionStorage.setItem("examCode",examCode);
+    let examCode=code+" | "+(today.toString().substring(0,16));
+    
     document.getElementById("fixedValue").value=examCode;
 }
  window.onload=generateValue;
@@ -407,6 +407,8 @@ dashboard.addEventListener("click", async (event) =>{
 
  if(textCode){
     const code={topic:textCode}
+
+    sessionStorage.setItem("examCode",textCode);
 
     const response=await fetch(url+"/exam/user/viaCode",{
         method:"POST",
