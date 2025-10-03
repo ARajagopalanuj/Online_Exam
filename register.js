@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://5319a8aa0ac8.ngrok-free.app"; //http://localhost:8080
+    const url="https://844a46868edf.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -150,6 +150,8 @@ container.appendChild(div);
 }
 const exam=document.getElementById("exam")
 if(exam){
+    document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
+    document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
     const questions=sessionStorage.getItem("questions")?JSON.parse(sessionStorage.getItem("questions")):[];
   
     questions.forEach((element,index)=>{
@@ -192,6 +194,13 @@ if(exam){
        
 
     })
+    let answerSet={};
+   
+    window.addEventListener("blur",()=>{
+       // alert(" your answer submittted automatically sorry you do not continue this exam");
+        submitButton();
+    
+    })
     let button=document.createElement("button");
     button.id="submitBtn";
   
@@ -199,6 +208,11 @@ if(exam){
     exam.appendChild(button);
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
+    submitButton();
+
+})
+
+    async function submitButton(){
     const answers=[];
     questions.forEach((element,index)=>{
         const selected=document.querySelector(`input[name="question_${index}"]:checked`);
@@ -208,7 +222,7 @@ submitBtn.addEventListener("click",async()=>{
         })
 
     })
-    const answerSet={
+    answerSet={
         questions:answers
     }
     
@@ -235,8 +249,9 @@ submitBtn.addEventListener("click",async()=>{
         alert(error.message);
 
     }
+}
     
-})
+
 
 }
 let history=document.getElementById("historyTable");
@@ -371,7 +386,9 @@ function generateValue(){
     let code=Math.floor(100000+ Math.random()*900000).toString();
 
     let today=new Date();
-    document.getElementById("fixedValue").value=code+" | "+(today.toString().substring(0,16));
+    const examCode=code+" | "+(today.toString().substring(0,16));
+    sessionStorage.setItem("examCode",examCode);
+    document.getElementById("fixedValue").value=examCode;
 }
  window.onload=generateValue;
 
