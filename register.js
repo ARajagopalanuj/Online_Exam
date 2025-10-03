@@ -287,12 +287,20 @@ if(history){
         td4.textContent=element.answer;
         let td5=document.createElement("td");
         td5.textContent=element.correctAnswer;
+        let td6=document.createElement("td");
+        td6.textContent=element.time;
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
         tr.appendChild(td5);
+        tr.appendChild(td6)
+        if(element.status==="correct Answer"){
+            tr.style.color="green";
+        }else{
+            tr.style.color="red";
+        }
         history.appendChild(tr);
 
         });
