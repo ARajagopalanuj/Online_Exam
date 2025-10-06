@@ -1,9 +1,10 @@
 /* 🌟 Base Styling */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(120deg, #f4f6f8, #e0f7fa, #f4f6f8);
+    background: url("dashboard.jpg")center/cover no-repeat fixed;
+  
     background-size: 200% 200%;
-    animation: gradientMove 6s infinite alternate;
+    /*animation: gradientMove 6s infinite alternate;*/
     color: #333;
     margin: 0;
     padding: 0;

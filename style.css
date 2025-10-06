@@ -1,164 +1,219 @@
-/* Import a professional font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
-
-/* Reset and global styles */
-* {
-    box-sizing: border-box;
+/* Full page background */
+.login {
+    min-height: 100vh;
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), 
+                url("login.jpg") center/cover no-repeat fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 0;
-    padding: 0;
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: var(--ff-Secondary, 'Segoe UI', sans-serif);
 }
 
-body {
-    background-color: #f5f7fa;
-    color: #333;
-}
-
-/* Background images for pages */
-#index {
-    background: url("R:/TOMCAT/apache-tomcat-10.1.44/webapps/ROOT/WEB-INF/classes/aptifrontend/apti.png") 
-                no-repeat center center fixed;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-#loginpage {
-    background-color: #f0f4f9;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-}
-
-/* General containers */
-.container,
-.login-container {
-    background: #ffffff;
-    padding: 40px 35px;
-    border-radius: 12px;
-    width: 360px;
+/* Glassmorphism Login Box */
+.login-box {
+    padding: 35px;
+    border-radius: 40px;
+    width: 400px;
     text-align: center;
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.1);
-    border: 1px solid #e0e6ed;
+    box-shadow: 0 0 12px rgba(0, 0, 0, .35);
+    backdrop-filter: blur(12px);
+    background: rgba(255,255,255,0.1);
 }
 
 /* Headings */
-h1 {
-    margin-bottom: 8px;
-    color: #2c3e50;
-    font-size: 26px;
-    font-weight: 700;
-}
-
-h2 {
-    margin-top: 20px;
-    color: #34495e;
-    font-size: 20px;
+.login-box h1,
+.login-box h2 {
+    margin-bottom: 20px;
+    color: var(--cir-white, #fff);
     font-weight: 600;
 }
 
-/* Intro / description */
-p.intro {
-    font-style: italic;
-    color: #666;
-    margin-bottom: 18px;
-    font-size: 14px;
+.login-box h1:hover,
+.login-box h2:hover {
+    color: var(--cir-primary, #2bcb1c);
 }
 
-/* Redirect link paragraph */
-p.redirect {
-    margin-top: 20px;
-    font-size: 14px;
-}
-
-/* Labels */
-label {
-    display: block;
-    margin: 12px 0 6px;
-    text-align: left;
-    font-size: 14px;
-    font-weight: 500;
-    color: #2c3e50;
+/* Input fields wrapper */
+.input-box {
+    position: relative;
+    margin: 16px 0;
 }
 
 /* Inputs */
-input[type="text"],
-input[type="password"] {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid #ccd6e0;
-    border-radius: 6px;
+.input-box input {
+    width: 100%;   /* full width inside the box */
+    padding: 14px 20px;  /* balanced padding */
+    border: 2px solid rgba(255, 255, 255, .2);
+    border-radius: 30px;
+    background: transparent;
+    color: var(--cir-white, #fff);
     font-size: 15px;
     outline: none;
-    transition: border 0.3s ease;
+    box-sizing: border-box; 
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    border-color: #007BFF;
-    box-shadow: 0 0 4px rgba(0,123,255,0.2);
+.input-box input::placeholder {
+    color: rgba(255, 255, 255, 0.8);
 }
 
-/* Submit buttons */
-input[type="submit"] {
-    margin-top: 18px;
-    padding: 12px;
-    background-color: #007BFF;
+
+
+
+/* Submit button */
+.login-box button {
+    width: 100%;
+    padding: 14px;
     border: none;
-    color: white;
+    border-radius: 30px;
+    background: var(--cir-primary, #2bcb1c);
+    color: #fff;
     font-size: 16px;
     font-weight: 600;
-    border-radius: 6px;
     cursor: pointer;
-    transition: background 0.3s ease;
-    width: 100%;
+    transition: 0.3s;
+    margin-top: 10px;
 }
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
+.login-box button:hover {
+    background: #26a90f;
 }
 
-/* Links */
-a {
-    color: #007BFF;
-    text-decoration: none;
-    font-weight: 500;
+/* Redirect / helper text */
+.login-box p {
+    margin-top: 18px;
     font-size: 14px;
+    color: var(--cir-white, #fff);
 }
 
-a:hover {
+.login-box a {
+    color: var(--cir-primary, #2bcb1c);
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.login-box a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+/* Full page background */
+#index {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), 
+                url("") center/cover no-repeat fixed;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Glassmorphism container */
+.container {
+    width: 380px;
+    padding: 35px;
+    border-radius: 20px;
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 0 15px rgba(0, 0, 0, .4);
+    color: #fff;
+}
+
+/* Headings */
+.container h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+.container h2 {
+    font-size: 20px;
+    margin: 15px 0;
+    color: #ddd;
+}
+
+.container h1:hover,
+.container h2:hover {
+    color: #2bcb1c;
+}
+
+/* Intro text */
+.intro {
+    margin-bottom: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #aaa;
+}
+
+/* Form inputs */
+form {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    text-align: left;
+    font-size: 14px;
+    color: #eee;
+}
+
+form input[type="text"] {
+    padding: 12px 15px;
+    border-radius: 25px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: #fff;
+    outline: none;
+    font-size: 15px;
+}
+
+form input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Submit button */
+form input[type="submit"] {
+    padding: 12px;
+    border: none;
+    border-radius: 25px;
+    background: #2bcb1c;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form input[type="submit"]:hover {
+    background: #26a90f;
+}
+
+/* Redirect link */
+.redirect {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #fff;
+}
+
+.redirect a {
+    color: #2bcb1c;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.redirect a:hover {
     text-decoration: underline;
 }
 
 /* Response message */
 #responseMsg {
     margin-top: 15px;
-    font-weight: 500;
-    color: #0069d9;
     font-size: 14px;
-}
-
-/* Specific styles for login page fieldset */
-.login-container fieldset {
-    border: 1px solid #ccd6e0;
-    border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 18px;
-    background: #fdfdfd;
-}
-
-.login-container legend {
-    font-weight: 600;
-    color: #2c3e50;
-    padding: 0 8px;
-    font-size: 14px;
-}
-
-/* Extra spacing between inputs for login page */
-.login-container input[type="text"],
-.login-container input[type="password"] {
-    margin-bottom: 15px;
+    color: #f8d210;
 }

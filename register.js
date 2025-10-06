@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://844a46868edf.ngrok-free.app"; //http://localhost:8080
+    const url="https://9318bb96a98b.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -11,7 +11,9 @@ document.addEventListener("DOMContentLoaded", async () => {
         event.preventDefault(); // stop auto-redirect
 
         const user = document.getElementById("reg-username").value.trim();
+        const emailCheck=/^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+        if(emailCheck.test(user)){
         try {
             const response = await fetch(url+"/exam/user/register", {
                 method: "POST",
@@ -33,6 +35,10 @@ document.addEventListener("DOMContentLoaded", async () => {
             msg.style.color = "red";
             msg.textContent = "Backend not reachable! "+error.message;
         }
+    }else{
+        msg.style.color = "red";
+            msg.textContent = "❌ enter valid mail id";
+    }
     });
 }
 
@@ -60,18 +66,23 @@ if(loginForm){
                 msg.style.color = "green";
                 msg.textContent =data.message; 
                 let topics=data.topics;
+                sessionStorage.setItem("isLoggedIn","true");
                 localStorage.setItem("topic",JSON.stringify(topics));
                 
                  if(data.admin){
                      setTimeout(()=>{
-                window.location.href="admin.html";
+                        if(sessionStorage.getItem("isLoggedIn")){
+                window.location.replace("admin.html");
+                        }
                 
                 },1000)
 
                  }else{
 
                 setTimeout(()=>{
-                window.location.href="dashboard.html";
+                    if(sessionStorage.getItem("isLoggedIn")){
+                window.location.replace("dashboard.html");
+                    }
                 
                 },1000)
                 }
