@@ -11,7 +11,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-   background: linear-gradient(135deg, #CBA8E8 0%, #B686D7 50%, #A273D4 100%);
+    background: #fff;
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);

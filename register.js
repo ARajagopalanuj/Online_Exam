@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://73abe2eb3d0f.ngrok-free.app"; //http://localhost:8080
+    const url="http://localhost:8080"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -25,7 +25,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             if (data.success) {
                 msg.style.color = "green";
-                msg.textContent = "✅ " + data.message; // show backend message
+                msg.textContent = "✅ " + data.message; 
+                window.location.replace("login.html");// show backend message
             } else {
                 msg.style.color = "red";
                 msg.textContent = "❌ " + data.message;
@@ -281,6 +282,7 @@ submitBtn.addEventListener("click",async()=>{
         const data=await responseAnswer.json();
         console.log(data.success);
         console.log(data.message);
+        sessionStorage.setItem("limit",answers.length);
         if(data.success){
             
             alert(`successfully\n${data.message}/${answers.length}`);
@@ -304,7 +306,8 @@ let history=document.getElementById("historyTable");
 if(history){
     const userHistory={
         user:sessionStorage.getItem("username"),
-        topic:sessionStorage.getItem("examCode")
+        topic:sessionStorage.getItem("examCode"),
+        size:sessionStorage.getItem("limit")
     }
    console.log(userHistory);
     
@@ -323,7 +326,7 @@ if(history){
         
         let tr=document.createElement("tr");
         let td1=document.createElement("td");
-        td1.textContent=index;
+        td1.textContent=index+1;
         let td2=document.createElement("td");
         td2.textContent=element.questionId;
         let td3=document.createElement("td");
