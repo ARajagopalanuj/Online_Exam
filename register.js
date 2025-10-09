@@ -191,7 +191,7 @@ if(exam){
     let minutes=Math.floor((seconds%3600)/60);
     let sec=seconds%60;
 
-    document.getElementById("timer").textContent=`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    document.getElementById("timer").textContent=`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
 
    }
     
