@@ -1,8 +1,12 @@
 /* Full page background */
+
+
+
+
 .login {
     min-height: 100vh;
     background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)), 
-                url("login.jpg") center/cover no-repeat fixed;
+                url("index.jpg") center/cover no-repeat fixed;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,7 +35,7 @@
 
 .login-box h1:hover,
 .login-box h2:hover {
-    color: var(--cir-primary, #2bcb1c);
+    color: var(--cir-primary, #B686D7);
 }
 
 /* Input fields wrapper */
@@ -66,7 +70,7 @@
     padding: 14px;
     border: none;
     border-radius: 30px;
-    background: var(--cir-primary, #2bcb1c);
+    background: var(--cir-primary, #B686D7);
     color: #fff;
     font-size: 16px;
     font-weight: 600;
@@ -76,7 +80,7 @@
 }
 
 .login-box button:hover {
-    background: #26a90f;
+    background: #B686D7;
 }
 
 /* Redirect / helper text */
@@ -87,7 +91,7 @@
 }
 
 .login-box a {
-    color: var(--cir-primary, #2bcb1c);
+    color: var(--cir-primary, #B686D7);
     font-weight: bold;
     text-decoration: none;
 }
@@ -138,7 +142,7 @@
 
 .container h1:hover,
 .container h2:hover {
-    color: #2bcb1c;
+    color: #B686D7;
 }
 
 /* Intro text */
@@ -182,7 +186,7 @@ form input[type="submit"] {
     padding: 12px;
     border: none;
     border-radius: 25px;
-    background: #2bcb1c;
+    background: #B686D7;
     color: #fff;
     font-size: 16px;
     font-weight: bold;
@@ -191,7 +195,7 @@ form input[type="submit"] {
 }
 
 form input[type="submit"]:hover {
-    background: #26a90f;
+    background: #B686D7;
 }
 
 /* Redirect link */
@@ -202,7 +206,7 @@ form input[type="submit"]:hover {
 }
 
 .redirect a {
-    color: #2bcb1c;
+    color: #B686D7;
     text-decoration: none;
     font-weight: bold;
 }

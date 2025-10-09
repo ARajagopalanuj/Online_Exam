@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://9318bb96a98b.ngrok-free.app"; //http://localhost:8080
+    const url="https://73abe2eb3d0f.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -161,9 +161,39 @@ container.appendChild(div);
 }
 const exam=document.getElementById("exam")
 if(exam){
+   
+
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
     document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
     const questions=sessionStorage.getItem("questions")?JSON.parse(sessionStorage.getItem("questions")):[];
+    let time;
+    let seconds=0;
+
+    startTimer();
+    function startTimer(){
+        if(!time){
+            time=setInterval(()=>{
+                seconds++;
+                updateTime();
+            },1000);
+        }
+
+   }
+
+   function stopTimer(){
+    clearInterval(time);
+    time=null;
+   }
+
+   function updateTime(){
+    let hours=Math.floor(seconds/3600);
+    let minutes=Math.floor((seconds%3600)/60);
+    let sec=seconds%60;
+
+    document.getElementById("timer").textContent=`${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+
+   }
+    
   
     questions.forEach((element,index)=>{
        let div= document.createElement("div");
@@ -224,17 +254,20 @@ submitBtn.addEventListener("click",async()=>{
 })
 
     async function submitButton(){
+        stopTimer();
     const answers=[];
     questions.forEach((element,index)=>{
         const selected=document.querySelector(`input[name="question_${index}"]:checked`);
         answers.push({
             qid:element.id,
-            answer:selected?selected.value:"none"
+            answer:selected?selected.value:"none",
+              topic:sessionStorage.getItem("examCode")
         })
 
     })
     answerSet={
         questions:answers
+      
     }
     
 
@@ -257,7 +290,7 @@ submitBtn.addEventListener("click",async()=>{
         }
     }catch(error){
         console.error("Error:",error.message);
-        alert(error.message);
+        
 
     }
 }
@@ -270,7 +303,8 @@ let history=document.getElementById("historyTable");
 
 if(history){
     const userHistory={
-        user:sessionStorage.getItem("username")
+        user:sessionStorage.getItem("username"),
+        topic:sessionStorage.getItem("examCode")
     }
    console.log(userHistory);
     

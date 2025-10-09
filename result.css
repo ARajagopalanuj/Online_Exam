@@ -1,7 +1,7 @@
 
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    background: #f4f7fb;
+   background: linear-gradient(135deg, #CBA8E8 0%, #B686D7 50%, #A273D4 100%);
     margin: 0;
     padding: 40px;
     color: #333;
@@ -11,7 +11,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
-    background: #fff;
+   background: linear-gradient(135deg, #CBA8E8 0%, #B686D7 50%, #A273D4 100%);
     border-radius: 8px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
