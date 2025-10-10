@@ -165,6 +165,7 @@ const exam=document.getElementById("exam")
 
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
+  if(exam){
 if (examSubmitted) { // ⚠️ User already submitted
         alert("You have already submitted this exam. Cannot reopen.");
         window.location.replace("dashboard.html");
@@ -176,7 +177,7 @@ if (examSubmitted) { // ⚠️ User already submitted
         window.location.replace("dashboard.html");
         return;
     }
-    if(exam){
+   
    
     console.log("raja");
 
