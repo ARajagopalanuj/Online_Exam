@@ -161,11 +161,22 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam){
+
 
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
-if(!examStarted||examSubmitted){
+if (examSubmitted) { // ⚠️ User already submitted
+        alert("You have already submitted this exam. Cannot reopen.");
+        window.location.replace("dashboard.html");
+        return; // ⚠️ Stop executing exam page code
+    }
+
+    if (!examStarted) { // ⚠️ User has not started the exam
+        alert("You have not started this exam yet.");
+        window.location.replace("dashboard.html");
+        return;
+    }
+    if(exam){
    
     console.log("raja");
 
@@ -328,7 +339,7 @@ submitBtn.addEventListener("click",async()=>{
     
 
 
-}
+
 let history=document.getElementById("historyTable");
 
 
