@@ -201,7 +201,7 @@ if(exam&&JSON.parse(localStorage.getItem("examStarted"))===true){
    }
     
   
-    questions.fonrEach((element,index)=>{
+    questions.forEach((element,index)=>{
        let div= document.createElement("div");
        let question=document.createElement("span");
        question.textContent=element.question;
