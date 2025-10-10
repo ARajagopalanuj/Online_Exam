@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam&&sessionStorage.getItem("examStarted")){
+if(exam&&sessionStorage.getItem("examStarted")==true){
    
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
@@ -308,7 +308,7 @@ submitBtn.addEventListener("click",async()=>{
                 console.error(error); 
             }
             setTimeout(()=>{
-          // window.location.href="result.html";
+           window.location.href="result.html";
             },300);
         }else{
             alert(`Failed ${data.message||data.error||"unknown error"}`);
