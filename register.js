@@ -249,12 +249,10 @@ const exam=document.getElementById("exam")
    
 
 window.addEventListener("blur", () => {
-    if (warn===1) {
-        warn=0
+    if (localStorage.getItem("warn")===1) {
+        localStorage.removeItem("warn");
         submitButton();
-        console.log("Exam submitted automatically due to window blur.");
-        
-        
+        console.log("Exam submitted automatically due to change the  window .");  
     }
 });
 
@@ -265,8 +263,8 @@ window.addEventListener("blur", () => {
     exam.appendChild(button);
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
-    console.log(warn);
-    if(warn===1){
+    
+    if(localStorage.getItem("warn")===1){
         console.log("eee");
         
     submitButton();
@@ -505,8 +503,8 @@ function generateValue(){
 
  
  if(dashboard){
-     warn=1;
-    console.log(warn);
+    localStorage.setItem("warn",1);
+    console.log(localStorage.getItem("warn"));
     localStorage.removeItem("examSubmitted");
    localStorage.setItem("examStarted",JSON.stringify(true));
     console.log(localStorage.getItem("examStarted"));
