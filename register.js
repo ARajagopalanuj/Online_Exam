@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam&&JSON.parse(sessionStorage.getItem("examStarted"))==="true"){
+if(exam&&JSON.parse(sessionStorage.getItem("examStarted"))===true){
    
     console.log("raja");
 
