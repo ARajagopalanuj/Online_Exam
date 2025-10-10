@@ -167,17 +167,7 @@ const exam=document.getElementById("exam")
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
   if(exam){
-if (examSubmitted) { 
-        alert("You have already submitted this exam. Cannot reopen.");
-        window.location.replace("dashboard.html");
-        return; 
-    }
 
-    if (!examStarted) {
-        alert("You have not started this exam yet.");
-        window.location.replace("dashboard.html");
-        return;
-    }
    
    
     console.log("raja");
@@ -256,7 +246,7 @@ if (examSubmitted) {
     })
     let answerSet={};
    
-   let examSubmittedFlag = false; // ✅ flag to prevent multiple submissions
+   
 
 window.addEventListener("blur", () => {
     if (warn--==1) {
@@ -506,9 +496,10 @@ function generateValue(){
 
 }
  const dashboard=document.getElementById("enterSession");
- warn=1;
+
  
  if(dashboard){
+     warn=1;
     console.log("hello");
     localStorage.removeItem("examSubmitted");
    localStorage.setItem("examStarted",JSON.stringify(true));
