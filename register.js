@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam){
+if(exam&&sessionStorage.getItem("examStarted")){
    
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
@@ -339,6 +339,7 @@ if(history){
     const historySet=data.historyList;
     
     if(data.success){
+        sessionStorage.removeItem("examStarted");
         document.getElementById("res").textContent="your marks: "+sessionStorage.getItem("marks")+"/"+sessionStorage.getItem("limit");
         historySet.forEach((element,index)=>{
             
@@ -474,6 +475,7 @@ function generateValue(){
  
  if(dashboard){
     console.log("hello");
+    sessionStorage.setItem("examStarted",true);
 dashboard.addEventListener("click", async (event) =>{
     event.preventDefault();
     console.log("hi")
