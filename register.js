@@ -164,8 +164,9 @@ const exam=document.getElementById("exam")
 if(JSON.parse(localStorage.getItem("examStarted"))===true){
     console.log("rajagopaln");
 }
-
-if(exam&&JSON.parse(localStorage.getItem("examStarted"))===true){
+ const examStarted=JSON.parse(localStorage.getItem("examStarted"));
+ const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
+if(!examStarted||examSubmitted){
    
     console.log("raja");
 
@@ -261,10 +262,9 @@ submitBtn.addEventListener("click",async()=>{
 
     async function submitButton(){
          
+         stopTimer();
+         localStorage.setItem("examSubmitted",JSON.stringify(true));
     localStorage.removeItem("examStarted");
-    
-    
-        stopTimer();
     const answers=[];
     questions.forEach((element,index)=>{
         const selected=document.querySelector(`input[name="question_${index}"]:checked`);
@@ -487,6 +487,7 @@ function generateValue(){
  
  if(dashboard){
     console.log("hello");
+    localStorage.removeItem("examSubmitted");
    localStorage.setItem("examStarted",JSON.stringify(true));
     console.log(localStorage.getItem("examStarted"));
 dashboard.addEventListener("click", async (event) =>{
