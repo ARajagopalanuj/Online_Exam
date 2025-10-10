@@ -55,7 +55,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            sessionStorage.setItem("username",user);
+            localStorage.setItem("username",user);
             const response= await fetch(url+"/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -161,17 +161,15 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(JSON.parse(localStorage.getItem("examStarted"))===true){
-    console.log("rajagopaln");
-}
+
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
 if(!examStarted||examSubmitted){
    
     console.log("raja");
 
-    document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
-    document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
+    document.getElementById("user").innerHTML="user: "+localStorage.getItem("username");
+   document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
     const questions=sessionStorage.getItem("questions")?JSON.parse(sessionStorage.getItem("questions")):[];
     let time;
     let seconds=0;
