@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(JSON.parse(sessionStorage.getItem("examStarted"))===true){
+if(JSON.parse(sessioStorage.getItem("examStarted"))===true){
     console.log("rajagopaln");
 }
 
@@ -201,7 +201,7 @@ if(exam&&JSON.parse(localStorage.getItem("examStarted"))===true){
    }
     
   
-    questions.forEach((element,index)=>{
+    questions.fonrEach((element,index)=>{
        let div= document.createElement("div");
        let question=document.createElement("span");
        question.textContent=element.question;
@@ -262,6 +262,7 @@ submitBtn.addEventListener("click",async()=>{
     async function submitButton(){
          
     localStorage.removeItem("examStarted");
+    
     
         stopTimer();
     const answers=[];
@@ -349,6 +350,7 @@ if(history){
     const historySet=data.historyList;
     
     if(data.success){
+        console.log(localStorage.getItem("examStarted"));
         
         document.getElementById("res").textContent="your marks: "+sessionStorage.getItem("marks")+"/"+sessionStorage.getItem("limit");
         historySet.forEach((element,index)=>{
