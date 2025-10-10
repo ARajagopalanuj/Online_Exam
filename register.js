@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam&&sessionStorage.getItem("examStarted")===true){
+if(exam&&sessionStorage.getItem("examStarted")==="true"){
    
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
