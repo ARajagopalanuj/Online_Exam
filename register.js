@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(JSON.parse(sessioStorage.getItem("examStarted"))===true){
+if(JSON.parse(localStorage.getItem("examStarted"))===true){
     console.log("rajagopaln");
 }
 
