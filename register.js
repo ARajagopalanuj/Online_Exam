@@ -255,7 +255,9 @@ submitBtn.addEventListener("click",async()=>{
 })
 
     async function submitButton(){
-        sessionStorage.removeItem("examStarted");
+          console.log("Before clear:", sessionStorage.getItem("examStarted"));
+    sessionStorage.removeItem("examStarted");
+    console.log("After clear:", sessionStorage.getItem("examStarted"));
         stopTimer();
     const answers=[];
     questions.forEach((element,index)=>{
@@ -305,7 +307,9 @@ submitBtn.addEventListener("click",async()=>{
             }catch(error){
                 console.error(error); 
             }
+            setTimeout(()=>{
            window.location.href="result.html";
+            },300);
         }else{
             alert(`Failed ${data.message||data.error||"unknown error"}`);
         }
