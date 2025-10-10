@@ -249,7 +249,7 @@ const exam=document.getElementById("exam")
    
 
 window.addEventListener("blur", () => {
-    if (warn==1) {
+    if (warn===1) {
         warn=0
         submitButton();
         console.log("Exam submitted automatically due to window blur.");
@@ -265,12 +265,14 @@ window.addEventListener("blur", () => {
     exam.appendChild(button);
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
-    if(warn--==1){
+    console.log(warn);
+    if(warn==1){
+        console.log("eee");
         
-    submitButton();
+    //submitButton();
     }else{
-        alert("already submitted");
-        window.location.replace("dashboard.html");
+       // alert("already submitted");
+      //  window.location.replace("dashboard.html");
     }
 
 })
