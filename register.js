@@ -55,7 +55,7 @@ if(loginForm){
                 user:user,
                 password:password
             }
-            localStorage.setItem("username",user);
+            sessionStorage.setItem("username",user);
             const response= await fetch(url+"/exam/user/login",{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -168,8 +168,8 @@ if(!examStarted||examSubmitted){
    
     console.log("raja");
 
-    document.getElementById("user").innerHTML="user: "+localStorage.getItem("username");
-   document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
+    document.getElementById("user").textContent="user: "+sessionStorage.getItem("username");
+   document.getElementById("topic").textContent="code: "+sessionStorage.getItem("examCode");
     const questions=sessionStorage.getItem("questions")?JSON.parse(sessionStorage.getItem("questions")):[];
     let time;
     let seconds=0;
