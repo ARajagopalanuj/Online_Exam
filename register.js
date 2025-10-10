@@ -165,7 +165,7 @@ if(JSON.parse(sessionStorage.getItem("examStarted"))===true){
     console.log("rajagopaln");
 }
 
-if(exam&&JSON.parse(sessionStorage.getItem("examStarted"))===true){
+if(exam&&JSON.parse(localStorage.getItem("examStarted"))===true){
    
     console.log("raja");
 
@@ -261,7 +261,7 @@ submitBtn.addEventListener("click",async()=>{
 
     async function submitButton(){
          
-    sessionStorage.removeItem("examStarted");
+    localStorage.removeItem("examStarted");
     
         stopTimer();
     const answers=[];
@@ -485,8 +485,8 @@ function generateValue(){
  
  if(dashboard){
     console.log("hello");
-    sessionStorage.setItem("examStarted",JSON.stringify(true));
-    console.log( sessionStorage.getItem("examStarted"));
+   localStorage.setItem("examStarted",JSON.stringify(true));
+    console.log(localStorage.getItem("examStarted"));
 dashboard.addEventListener("click", async (event) =>{
     event.preventDefault();
     console.log("hi")
