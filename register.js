@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam&&sessionStorage.getItem("examStarted")==="true"){
+if(exam&&JSON.parse(sessionStorage.getItem("examStarted"))==="true"){
    
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
@@ -480,7 +480,7 @@ function generateValue(){
  
  if(dashboard){
     console.log("hello");
-    sessionStorage.setItem("examStarted",true);
+    sessionStorage.setItem("examStarted",JSON.stringify(true));
 dashboard.addEventListener("click", async (event) =>{
     event.preventDefault();
     console.log("hi")
