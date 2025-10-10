@@ -482,6 +482,7 @@ function generateValue(){
  if(dashboard){
     console.log("hello");
     sessionStorage.setItem("examStarted",JSON.stringify(true));
+    console.log( sessionStorage.setItem("examStarted",JSON.stringify(true)));
 dashboard.addEventListener("click", async (event) =>{
     event.preventDefault();
     console.log("hi")
