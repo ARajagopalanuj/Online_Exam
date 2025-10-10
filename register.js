@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
+    let warn=0;
 
     if(form){
     form.addEventListener("submit", async (event) => {
@@ -166,13 +167,13 @@ const exam=document.getElementById("exam")
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
   if(exam){
-if (examSubmitted) { // ⚠️ User already submitted
+if (examSubmitted) { 
         alert("You have already submitted this exam. Cannot reopen.");
         window.location.replace("dashboard.html");
-        return; // ⚠️ Stop executing exam page code
+        return; 
     }
 
-    if (!examStarted) { // ⚠️ User has not started the exam
+    if (!examStarted) {
         alert("You have not started this exam yet.");
         window.location.replace("dashboard.html");
         return;
@@ -258,9 +259,8 @@ if (examSubmitted) { // ⚠️ User already submitted
    let examSubmittedFlag = false; // ✅ flag to prevent multiple submissions
 
 window.addEventListener("blur", () => {
-    if (!examSubmittedFlag) {
-        examSubmittedFlag = true; // mark submitted
-        // optionally show a non-blocking message instead of alert
+    if (warn--==1) {
+        
         console.log("Exam submitted automatically due to window blur.");
         submitButton();
     }
@@ -273,7 +273,11 @@ window.addEventListener("blur", () => {
     exam.appendChild(button);
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
+    if(warn--==1){
     submitButton();
+    }else{
+        alert("already submitted");
+    }
 
 })
 
@@ -502,6 +506,7 @@ function generateValue(){
 
 }
  const dashboard=document.getElementById("enterSession");
+ warn=1;
  
  if(dashboard){
     console.log("hello");
