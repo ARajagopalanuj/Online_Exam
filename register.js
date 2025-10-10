@@ -265,7 +265,7 @@ window.addEventListener("blur", () => {
 submitBtn.addEventListener("click",async()=>{
     
     if(Number(localStorage.getItem("warn"))===1){
-        console.log("eee");
+         localStorage.removeItem("warn");
         
     submitButton();
     }else{
