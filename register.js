@@ -266,13 +266,13 @@ window.addEventListener("blur", () => {
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
     console.log(warn);
-    if(warn==1){
+    if(warn===1){
         console.log("eee");
         
-    //submitButton();
+    submitButton();
     }else{
-       // alert("already submitted");
-      //  window.location.replace("dashboard.html");
+       alert("already submitted");
+       window.location.replace("dashboard.html");
     }
 
 })
@@ -506,7 +506,7 @@ function generateValue(){
  
  if(dashboard){
      warn=1;
-    console.log("hello");
+    console.log(warn);
     localStorage.removeItem("examSubmitted");
    localStorage.setItem("examStarted",JSON.stringify(true));
     console.log(localStorage.getItem("examStarted"));
