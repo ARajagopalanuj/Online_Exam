@@ -161,7 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
-if(exam&&sessionStorage.getItem("examStarted")==true){
+if(exam&&sessionStorage.getItem("examStarted")===true){
    
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
@@ -255,9 +255,9 @@ submitBtn.addEventListener("click",async()=>{
 })
 
     async function submitButton(){
-          console.log("Before clear:", sessionStorage.getItem("examStarted"));
-    await sessionStorage.removeItem("examStarted");
-    console.log("After clear:", sessionStorage.getItem("examStarted"));
+         
+    sessionStorage.removeItem("examStarted");
+    
         stopTimer();
     const answers=[];
     questions.forEach((element,index)=>{
