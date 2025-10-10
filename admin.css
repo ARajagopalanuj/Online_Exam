@@ -86,7 +86,7 @@ label[for="none"] {
 }
 
 /* Submit Button */
-#answersubmit {
+button {
     width: 100%;
     background: #1a73e8;
     color: white;

@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="http://localhost:8080"; //http://localhost:8080
+    const url="https://dda109206d50.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -282,11 +282,29 @@ submitBtn.addEventListener("click",async()=>{
         const data=await responseAnswer.json();
         console.log(data.success);
         console.log(data.message);
+        sessionStorage.setItem("marks",data.message);
         sessionStorage.setItem("limit",answers.length);
         if(data.success){
             
-            alert(`successfully\n${data.message}/${answers.length}`);
-            window.location.href="result.html";
+            //alert(`successfully\n${data.message}/${answers.length}`);
+            try{
+                const putMarks={
+                    user:sessionStorage.getItem("username"),
+                    topic:sessionStorage.getItem("examCode"),
+                    total:sessionStorage.getItem("marks"),
+                    limit:sessionStorage.getItem("limit")
+                }
+                const resp=await fetch(url+"/exam/user/putmarks",{
+                    method:"PUT",
+                    headers:{"Content-Type":"application/json"},
+                    body:JSON.stringify(putMarks)
+                });
+                const addData= await resp.json();
+                console.log(addData);
+            }catch(error){
+                console.error(error); 
+            }
+           window.location.href="result.html";
         }else{
             alert(`Failed ${data.message||data.error||"unknown error"}`);
         }
@@ -321,8 +339,9 @@ if(history){
     const historySet=data.historyList;
     
     if(data.success){
+        document.getElementById("res").textContent="your marks: "+sessionStorage.getItem("marks")+"/"+sessionStorage.getItem("limit");
         historySet.forEach((element,index)=>{
-            console.log(historySet);
+            
         
         let tr=document.createElement("tr");
         let td1=document.createElement("td");
@@ -487,5 +506,62 @@ dashboard.addEventListener("click", async (event) =>{
  }
  });
 }
+const result=document.getElementById("result");
+if(result){
+   
+result.addEventListener("click",async(event)=>{
+        event.preventDefault();
+        
+        const code=document.getElementById("checkresult").value.trim();
+        
+        const codeSet={
+            code:code
+        }
+        try{
+            const response=await fetch(url+"//exam/user/getmarks",{
+                method:"POST",
+                headers:{"Content-Type":"application/json"},
+                body:JSON.stringify(codeSet)
+            })
+            const data=await response.json();
+            console.log(data);
+            const results=data.marks;
+            sessionStorage.setItem("results",JSON.stringify(results))
+            if(data.success){
+             window.location.href="markList.html"                
+            }
+        }catch(error){
+            console.error(error);
+        }
 
+});
+}
+const rankList=document.getElementById("rankList");
+if(rankList){
+    const results=JSON.parse(sessionStorage.getItem("results"))||[];
+    results.forEach((element,index)=>{
+
+
+        let tr=document.createElement("tr");
+        let td1=document.createElement("td");
+        td1.textContent=index+1;
+
+        let td2=document.createElement("td");
+        td2.textContent=element.user;
+
+        let td3=document.createElement("td");
+        td3.textContent=element.total;
+        
+
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        tr.appendChild(td3);
+
+       rankList.appendChild(tr);
+
+        
+
+
+    })
+}
 });
