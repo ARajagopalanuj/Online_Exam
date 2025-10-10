@@ -5,7 +5,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
-    let warn=0;
+    let warn;
 
     if(form){
     form.addEventListener("submit", async (event) => {
