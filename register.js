@@ -249,10 +249,12 @@ const exam=document.getElementById("exam")
    
 
 window.addEventListener("blur", () => {
-    if (warn--==1) {
-        
-        console.log("Exam submitted automatically due to window blur.");
+    if (warn==1) {
+        warn=0
         submitButton();
+        console.log("Exam submitted automatically due to window blur.");
+        
+        
     }
 });
 
