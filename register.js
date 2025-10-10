@@ -249,7 +249,7 @@ const exam=document.getElementById("exam")
    
 
 window.addEventListener("blur", () => {
-    if (localStorage.getItem("warn")===1) {
+    if (Number(localStorage.getItem("warn"))===1) {
         localStorage.removeItem("warn");
         submitButton();
         console.log("Exam submitted automatically due to change the  window .");  
@@ -264,7 +264,7 @@ window.addEventListener("blur", () => {
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
     
-    if(localStorage.getItem("warn")===1){
+    if(Number(localStorage.getItem("warn"))===1){
         console.log("eee");
         
     submitButton();
