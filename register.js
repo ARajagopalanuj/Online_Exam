@@ -161,6 +161,7 @@ container.appendChild(div);
        });
 }
 const exam=document.getElementById("exam")
+if(exam){
 
  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
@@ -322,6 +323,7 @@ submitBtn.addEventListener("click",async()=>{
         
 
     }
+}
 }
     
 
