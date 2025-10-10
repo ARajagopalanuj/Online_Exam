@@ -163,6 +163,7 @@ container.appendChild(div);
 const exam=document.getElementById("exam")
 if(exam&&JSON.parse(sessionStorage.getItem("examStarted"))==="true"){
    
+    console.log("raja");
 
     document.getElementById("user").innerHTML="user: "+sessionStorage.getItem("username");
     document.getElementById("topic").innerHTML="code: "+sessionStorage.getItem("examCode");
