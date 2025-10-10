@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://dda109206d50.ngrok-free.app"; //http://localhost:8080
+    const url="http://localhost:8080"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -255,6 +255,7 @@ submitBtn.addEventListener("click",async()=>{
 })
 
     async function submitButton(){
+        sessionStorage.removeItem("examStarted");
         stopTimer();
     const answers=[];
     questions.forEach((element,index)=>{
@@ -339,7 +340,7 @@ if(history){
     const historySet=data.historyList;
     
     if(data.success){
-        sessionStorage.removeItem("examStarted");
+        
         document.getElementById("res").textContent="your marks: "+sessionStorage.getItem("marks")+"/"+sessionStorage.getItem("limit");
         historySet.forEach((element,index)=>{
             
