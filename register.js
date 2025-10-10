@@ -254,11 +254,17 @@ if (examSubmitted) { // ⚠️ User already submitted
     })
     let answerSet={};
    
-    window.addEventListener("blur",()=>{
-       // alert(" your answer submittted automatically sorry you do not continue this exam");
+   let examSubmittedFlag = false; // ✅ flag to prevent multiple submissions
+
+window.addEventListener("blur", () => {
+    if (!examSubmittedFlag) {
+        examSubmittedFlag = true; // mark submitted
+        // optionally show a non-blocking message instead of alert
+        console.log("Exam submitted automatically due to window blur.");
         submitButton();
-    
-    })
+    }
+});
+
     let button=document.createElement("button");
     button.id="submitBtn";
   
