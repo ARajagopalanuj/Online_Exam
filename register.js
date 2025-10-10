@@ -264,9 +264,11 @@ window.addEventListener("blur", () => {
     const submitBtn=document.getElementById("submitBtn");
 submitBtn.addEventListener("click",async()=>{
     if(warn--==1){
+        
     submitButton();
     }else{
         alert("already submitted");
+        window.location.replace("dashboard.html");
     }
 
 })
