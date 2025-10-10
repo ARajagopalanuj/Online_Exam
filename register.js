@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="http://localhost:8080"; //http://localhost:8080
+    const url="https://dda109206d50.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
