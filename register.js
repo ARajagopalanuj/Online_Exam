@@ -1,7 +1,7 @@
 
 
 document.addEventListener("DOMContentLoaded", async () => {
-    const url="https://dda109206d50.ngrok-free.app"; //http://localhost:8080
+    const url="https://f0f5f0e9b8f2.ngrok-free.app"; //http://localhost:8080
     const form = document.getElementById("registerForm");
     const loginForm = document.getElementById("loginForm");
     const msg = document.getElementById("responseMsg");
@@ -164,13 +164,10 @@ container.appendChild(div);
 const exam=document.getElementById("exam")
 
 
- const examStarted=JSON.parse(localStorage.getItem("examStarted"));
- const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
+//  const examStarted=JSON.parse(localStorage.getItem("examStarted"));
+//  const examSubmitted=JSON.parse(localStorage.getItem("examSubmitted"));
   if(exam){
 
-   
-   
-    console.log("raja");
 
     document.getElementById("user").textContent="user: "+sessionStorage.getItem("username");
    document.getElementById("topic").textContent="code: "+sessionStorage.getItem("examCode");
@@ -252,7 +249,7 @@ window.addEventListener("blur", () => {
     if (Number(localStorage.getItem("warn"))===1) {
         localStorage.removeItem("warn");
         submitButton();
-        console.log("Exam submitted automatically due to change the  window .");  
+        document.getElementById("submission").textContent="Exam submitted automatically due to change the  window .";  
     }
 });
 
